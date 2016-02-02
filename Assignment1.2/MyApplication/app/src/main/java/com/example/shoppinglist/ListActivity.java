@@ -67,7 +67,6 @@ public class ListActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -76,9 +75,16 @@ public class ListActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+
             return true;
         }
+        if (item.getItemId() == R.id.action_bar_menu_delete_all) {
+            //Clears the list
+            items.clear();
 
+            //Tell the adapter that it should reload the data
+            adapter.notifyDataSetChanged();
+        }
         return super.onOptionsItemSelected(item);
     }
 }
