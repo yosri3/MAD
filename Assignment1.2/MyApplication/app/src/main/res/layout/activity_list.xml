@@ -23,6 +23,22 @@
 
     <include layout="@layout/content_list" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Item"
+        android:id="@+id/button"
+        android:layout_gravity="bottom|right" />
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/editText"
+        android:hint="What to buy"
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="100dp"
+        android:layout_marginLeft="10dp"/>
+
+
     <!--
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
