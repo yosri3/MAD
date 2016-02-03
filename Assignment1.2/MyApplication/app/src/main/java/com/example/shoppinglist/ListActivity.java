@@ -29,6 +29,7 @@ public class ListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        registerForContextMenu(listView);
 
         //Initialize the views
         listView = (ListView) findViewById(R.id.listView);
@@ -58,6 +59,8 @@ public class ListActivity extends AppCompatActivity {
                 Snackbar.make(parent, "Clicked: " + clickedItem, Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+
     }
 
     @Override
