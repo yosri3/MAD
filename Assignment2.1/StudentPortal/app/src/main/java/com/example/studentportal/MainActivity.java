@@ -8,25 +8,52 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+        //Adapter and ArrayList
+        private ArrayAdapter<ListItem> adapter;
+        //Views
+        private ListView listView;
+        //ListItem
+        private List<ListItem> items;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_main);
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-    }
+            //Initialize the views
+            listView = (ListView) findViewById(R.id.listView);
+
+            //Initialize item list
+            items = new ArrayList<ListItem>();
+
+            //Adding items to the list
+            items.add(new ListItem("VLO", "https://home.informatica.hva.nl/vlo/"));
+            items.add(new ListItem("DMCI", "https://ict.dmci.hva.nl/"));
+            items.add(new ListItem("Rooster", "https://rooster.hva.nl/"));
+            items.add(new ListItem("Resultaten", "https://resultaten.hva.nl/"));
+
+            adapter = new ArrayAdapter<ListItem>(this, android.R.layout.simple_list_item_1, items);
+            //Set the newly created adapter as the adapter for the listview
+            listView.setAdapter(adapter);
+
+            FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+            });
+        }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -50,3 +77,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
