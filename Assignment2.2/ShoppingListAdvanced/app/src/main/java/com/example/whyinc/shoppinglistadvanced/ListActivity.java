@@ -1,5 +1,6 @@
 package com.example.whyinc.shoppinglistadvanced;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -61,6 +62,29 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        //Check if the result code is the right one
+        if (resultCode == Activity.RESULT_OK) {
+            //Check if the request code is correct
+            if (requestCode == 1234) {
+                //Everything's fine, get the values;
+                String title = data.getStringExtra("title");
+                String description = data.getStringExtra("description");
+                int imageResource = data.getIntExtra("image-resource", 0);
+
+                //Create a list item from the values
+                ListItem item = new ListItem(title, description, imageResource);
+
+                //Add the new item to the adapter;
+                items.add(item);
+
+                //Have the adapter update
+                adapter.notifyDataSetChanged();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override
