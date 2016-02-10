@@ -44,19 +44,22 @@ public class ListActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 //Create an Intent
                 Intent intent = new Intent(ListActivity.this, DetailsActivity.class);
-
-                //Open the new screen by starting the activity
-                startActivity(intent);
-
                 ListItem clickedItem = (ListItem) parent.getItemAtPosition(position);
+
                 intent.putExtra("title", clickedItem.getTitle());
                 intent.putExtra("description", clickedItem.getDescription());
                 intent.putExtra("image-resource", clickedItem.getImageResource());
+                
+                //Open the new screen by starting the activity
+                startActivity(intent);
+
+
 
             }
         });
