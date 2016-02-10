@@ -1,5 +1,6 @@
 package com.example.whyinc.shoppinglistadvanced;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,6 +9,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -42,6 +44,23 @@ public class ListActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //Create an Intent
+                Intent intent = new Intent(ListActivity.this, DetailsActivity.class);
+
+                //Open the new screen by starting the activity
+                startActivity(intent);
+
+                ListItem clickedItem = (ListItem) parent.getItemAtPosition(position);
+                intent.putExtra("title", clickedItem.getTitle());
+                intent.putExtra("description", clickedItem.getDescription());
+                intent.putExtra("image-resource", clickedItem.getImageResource());
+
+            }
+        });
+
     }
 
     @Override
