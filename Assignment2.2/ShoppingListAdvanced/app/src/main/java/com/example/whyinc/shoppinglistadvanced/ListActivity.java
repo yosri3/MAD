@@ -29,7 +29,7 @@ public class ListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         items = new ArrayList<ListItem>();
-        adapter = new ItemAdapter(this,R.layout.row_item,items);
+        adapter = new ItemAdapter(this, R.layout.row_item, items);
         listView.setAdapter(adapter);
 
         items.add(new ListItem("Cherry", "YUMMY", R.mipmap.ic_launcher));
@@ -40,8 +40,8 @@ public class ListActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(view.getContext(), NewItemActivity.class);
+                startActivityForResult(intent, 1234);
             }
         });
 
@@ -55,12 +55,9 @@ public class ListActivity extends AppCompatActivity {
                 intent.putExtra("title", clickedItem.getTitle());
                 intent.putExtra("description", clickedItem.getDescription());
                 intent.putExtra("image-resource", clickedItem.getImageResource());
-                
+
                 //Open the new screen by starting the activity
                 startActivity(intent);
-
-
-
             }
         });
 
