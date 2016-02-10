@@ -1,5 +1,7 @@
 package com.example.whyinc.shoppinglistadvanced;
 
+import android.widget.ArrayAdapter;
+
 public class ListItem {
     private String title;
     private String description;
