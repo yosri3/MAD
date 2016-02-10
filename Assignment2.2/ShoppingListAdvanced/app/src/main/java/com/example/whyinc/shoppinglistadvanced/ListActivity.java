@@ -1,12 +1,15 @@
 package com.example.whyinc.shoppinglistadvanced;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.content.ClipData;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.ContextMenu;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +23,7 @@ public class ListActivity extends AppCompatActivity {
     private ListView listView;
     private List<ListItem> items;
     private ItemAdapter adapter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +40,9 @@ public class ListActivity extends AppCompatActivity {
         items.add(new ListItem("Cherry", "YUMMY", R.mipmap.ic_launcher));
         items.add(new ListItem("Mango", "Exotic", R.mipmap.ic_launcher));
         adapter.notifyDataSetChanged();
+
+        registerForContextMenu(listView);
+
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -62,6 +69,36 @@ public class ListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo) {
+        //Get the clicked item
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+
+        //Inflate the context menu from the resource file
+        getMenuInflater().inflate(R.menu.context_menu, menu);
+
+        //Find the delete MenuItem by its ID
+        MenuItem deleteButton = menu.findItem(R.id.context_menu_delete_item);
+
+        //Let Android do its magic
+        super.onCreateContextMenu(menu, view, menuInfo);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        //Retrieve info about the long pressed list item
+        AdapterView.AdapterContextMenuInfo itemInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        if (item.getItemId() == R.id.context_menu_delete_item) {
+            //Remove the item from the list
+            items.remove(itemInfo.position);
+            //Update the adapter to reflect the list change
+            adapter.notifyDataSetChanged();
+            return true;
+        }
+
+        return super.onContextItemSelected(item);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -94,7 +131,6 @@ public class ListActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
@@ -104,6 +140,13 @@ public class ListActivity extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
+        }
+        if (item.getItemId() == R.id.deleteAll) {
+            //Clears the list
+            items.clear();
+
+            //Tell the adapter that it should reload the data
+            adapter.notifyDataSetChanged();
         }
 
         return super.onOptionsItemSelected(item);
