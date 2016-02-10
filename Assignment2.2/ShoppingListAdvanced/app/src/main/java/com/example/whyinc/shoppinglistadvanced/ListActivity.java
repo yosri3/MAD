@@ -37,8 +37,10 @@ public class ListActivity extends AppCompatActivity {
         adapter = new ItemAdapter(this, R.layout.row_item, items);
         listView.setAdapter(adapter);
 
-        items.add(new ListItem("Cherry", "YUMMY", R.mipmap.ic_launcher));
-        items.add(new ListItem("Mango", "Exotic", R.mipmap.ic_launcher));
+        for(int i = 0; i<100;i++) {
+            items.add(new ListItem("Cherry", "YUMMY", R.mipmap.ic_launcher));
+            items.add(new ListItem("Mango", "Exotic", R.mipmap.ic_launcher));
+        }
         adapter.notifyDataSetChanged();
 
         registerForContextMenu(listView);
@@ -100,6 +102,7 @@ public class ListActivity extends AppCompatActivity {
 
         return super.onContextItemSelected(item);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         //Check if the result code is the right one
